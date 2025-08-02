@@ -18,38 +18,57 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-50">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white p-8 rounded shadow"
+        className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl border border-slate-200/50 backdrop-blur-sm"
       >
-        <h2 className="text-2xl mb-6 text-center">Admin Login</h2>
-        {error && <p className="mb-4 text-red-600">{error}</p>}
-        <label className="block mb-2">
-          <span className="text-gray-700">Email</span>
-          <input
-            type="email"
-            className="mt-1 block w-full border rounded px-3 py-2"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label className="block mb-4">
-          <span className="text-gray-700">Password</span>
-          <input
-            type="password"
-            className="mt-1 block w-full border rounded px-3 py-2"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-slate-800 mb-2">Welcome Back</h2>
+          <p className="text-slate-600">Sign in to your admin account</p>
+        </div>
+        
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-700 text-sm">{error}</p>
+          </div>
+        )}
+        
+        <div className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">
+              Email Address
+            </label>
+            <input
+              type="email"
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white text-slate-900 placeholder-slate-400"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors bg-white text-slate-900 placeholder-slate-400"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+        
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="w-full mt-8 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg"
         >
-          Login
+          Sign In
         </button>
       </form>
     </div>

@@ -40,35 +40,78 @@ export default function UserList() {
   if (error) return <p className="p-6 text-red-600">Error: {error}</p>;
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-semibold mb-4">Manage Users</h2>
-      <table className="min-w-full bg-white shadow rounded">
-        <thead>
-          <tr>
-            <th className="py-2 px-4 border-b text-left">Name</th>
-            <th className="py-2 px-4 border-b text-left">Email</th>
-            <th className="py-2 px-4 border-b text-left">Role</th>
-            <th className="py-2 px-4 border-b text-left">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((u) => (
-            <tr key={u._id} className="hover:bg-gray-100">
-              <td className="py-2 px-4	border-b">{u.name}</td>
-              <td className="py-2 px-4 border-b">{u.email}</td>
-              <td className="py-2 px-4 border-b capitalize">{u.role}</td>
-              <td className="py-2 px-4 border-b">
-                <button
-                  onClick={() => openStats(u._id)}
-                  className="text-blue-600 hover:underline"
-                >
-                  View Stats
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-800">User Management</h1>
+          <p className="text-slate-600 mt-1">Manage and view statistics for all platform users</p>
+        </div>
+      </div>
+      
+      <div className="bg-white shadow-xl rounded-2xl border border-slate-200/50 overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-slate-200">
+            <thead className="bg-slate-50">
+              <tr>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  User
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  Email
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  Role
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-slate-200">
+              {users.map((u, index) => (
+                <tr key={u._id} className={`hover:bg-slate-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-slate-25'}`}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center">
+                      <div className="flex-shrink-0 h-10 w-10">
+                        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+                          <span className="text-white font-semibold text-sm">
+                            {u.name.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="ml-4">
+                        <div className="text-sm font-semibold text-slate-900">{u.name}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-slate-600">{u.email}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
+                      u.role === 'admin' 
+                        ? 'bg-red-100 text-red-800' 
+                        : u.role === 'parent'
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-green-100 text-green-800'
+                    }`}>
+                      {u.role.charAt(0).toUpperCase() + u.role.slice(1)}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button
+                      onClick={() => openStats(u._id)}
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 text-sm font-medium"
+                    >
+                      View Stats
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <UserStatsModal
         userId={selectedUser}

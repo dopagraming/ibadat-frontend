@@ -37,49 +37,67 @@ export default function UserStatsModal({ userId, isOpen, onClose }: Props) {
     <Dialog
       open={isOpen}
       onClose={onClose}
-      className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-30"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
     >
-      <Dialog.Panel className="bg-white rounded shadow-lg w-full max-w-md">
-        <div className="p-6">
-          <Dialog.Title className="text-xl font-semibold mb-4">
+      <Dialog.Panel className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 border border-slate-200/50">
+        <div className="p-8">
+          <Dialog.Title className="text-2xl font-bold text-slate-800 mb-6 text-center">
             User Statistics
           </Dialog.Title>
 
-          {loading && <p>Loading stats…</p>}
-          {error && <p className="text-red-600">Error: {error}</p>}
+          {loading && (
+            <div className="flex items-center justify-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              <span className="ml-3 text-slate-600">Loading stats...</span>
+            </div>
+          )}
+          
+          {error && (
+            <div className="p-4 bg-red-50 border border-red-200 rounded-lg mb-4">
+              <p className="text-red-700 text-sm">Error: {error}</p>
+            </div>
+          )}
 
           {!loading && !error && (
-            <div className="space-y-2">
+            <div className="space-y-4">
               {stats.worshipCount !== undefined && (
-                <p>
-                  <strong>Worships Completed:</strong> {stats.worshipCount}
-                </p>
+                <div className="flex justify-between items-center p-4 bg-blue-50 rounded-lg">
+                  <span className="font-medium text-slate-700">Worships Completed</span>
+                  <span className="text-2xl font-bold text-blue-600">{stats.worshipCount}</span>
+                </div>
               )}
               {stats.points !== undefined && (
-                <p>
-                  <strong>Total Points:</strong> {stats.points}
-                </p>
+                <div className="flex justify-between items-center p-4 bg-green-50 rounded-lg">
+                  <span className="font-medium text-slate-700">Total Points</span>
+                  <span className="text-2xl font-bold text-green-600">{stats.points}</span>
+                </div>
               )}
               {stats.gifts !== undefined && (
-                <p>
-                  <strong>Gifts Awarded:</strong> {stats.gifts}
-                </p>
+                <div className="flex justify-between items-center p-4 bg-purple-50 rounded-lg">
+                  <span className="font-medium text-slate-700">Gifts Awarded</span>
+                  <span className="text-2xl font-bold text-purple-600">{stats.gifts}</span>
+                </div>
               )}
               {stats.studentCount !== undefined && (
-                <p>
-                  <strong>Student Count:</strong> {stats.studentCount}
-                </p>
+                <div className="flex justify-between items-center p-4 bg-orange-50 rounded-lg">
+                  <span className="font-medium text-slate-700">Student Count</span>
+                  <span className="text-2xl font-bold text-orange-600">{stats.studentCount}</span>
+                </div>
               )}
               {stats.totalPoints !== undefined && (
-                <p>
-                  <strong>Total Points of Students:</strong> {stats.totalPoints}
-                </p>
+                <div className="flex justify-between items-center p-4 bg-indigo-50 rounded-lg">
+                  <span className="font-medium text-slate-700">Students' Total Points</span>
+                  <span className="text-2xl font-bold text-indigo-600">{stats.totalPoints}</span>
+                </div>
               )}
             </div>
           )}
 
-          <div className="mt-6 flex justify-end">
-            <button onClick={onClose} className="px-4 py-2 bg-gray-200 rounded">
+          <div className="mt-8 flex justify-center">
+            <button 
+              onClick={onClose} 
+              className="px-6 py-3 bg-slate-600 hover:bg-slate-700 text-white rounded-lg transition-colors duration-200 font-medium"
+            >
               Close
             </button>
           </div>
